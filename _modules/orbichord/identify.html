@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>orbichord.identify &#8212; Orbichord 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for orbichord.identify</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Define a set of common chord identyfier.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
+
+
+<div class="viewcode-block" id="base10toN"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.base10toN">[docs]</a><span class="k">def</span> <span class="nf">base10toN</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change to given base upto base 36 is supported.</span>
+<span class="sd">    http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">converted_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">currentnum</span> <span class="o">=</span> <span class="n">num</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">base</span> <span class="o">&lt;</span> <span class="mi">37</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;base must be between 2 and 36&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">num</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;0&#39;</span>
+    <span class="k">while</span> <span class="n">currentnum</span><span class="p">:</span>
+        <span class="n">mod</span> <span class="o">=</span> <span class="n">currentnum</span> <span class="o">%</span> <span class="n">base</span>
+        <span class="n">currentnum</span> <span class="o">=</span> <span class="n">currentnum</span> <span class="o">//</span> <span class="n">base</span>
+        <span class="n">converted_string</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">48</span> <span class="o">+</span> <span class="n">mod</span> <span class="o">+</span> <span class="mi">7</span><span class="o">*</span><span class="p">(</span><span class="n">mod</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">))</span> <span class="o">+</span> <span class="n">converted_string</span>
+    <span class="k">return</span> <span class="n">converted_string</span></div>
+
+
+<div class="viewcode-block" id="chordPitchClasses"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.chordPitchClasses">[docs]</a><span class="k">def</span> <span class="nf">chordPitchClasses</span><span class="p">(</span><span class="n">chord</span> <span class="p">:</span> <span class="n">Chord</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify chords based on its pitch classes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        chord : Chord</span>
+<span class="sd">            Chord to be identified.</span>
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string with the pitch classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pcs</span> <span class="o">=</span> <span class="n">chord</span><span class="o">.</span><span class="n">pitchClasses</span>
+    <span class="k">return</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">base10toN</span><span class="p">,</span> <span class="n">pcs</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span></div>
+
+
+<div class="viewcode-block" id="chordPitchNames"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.chordPitchNames">[docs]</a><span class="k">def</span> <span class="nf">chordPitchNames</span><span class="p">(</span><span class="n">chord</span> <span class="p">:</span> <span class="n">Chord</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify chords based on its pitch names.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        chord : Chord</span>
+<span class="sd">            Chord to be identified.</span>
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string with the pitch names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">pitch</span><span class="p">:</span> <span class="n">pitch</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">chord</span><span class="o">.</span><span class="n">pitches</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="chordSymbolIndex"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.chordSymbolIndex">[docs]</a><span class="k">def</span> <span class="nf">chordSymbolIndex</span><span class="p">(</span><span class="n">chord</span> <span class="p">:</span> <span class="n">Chord</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Identify chords based on its chord symbol index.</span>
+
+<span class="sd">    The chord symbol index is an index that is unique to each named chord.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        chord : Chord</span>
+<span class="sd">            Chord to be identified.</span>
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string with the pitch names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Remove repeated pitch class</span>
+    <span class="n">pcs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">veto</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">pc</span> <span class="ow">in</span> <span class="n">chord</span><span class="o">.</span><span class="n">pitchClasses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pc</span> <span class="ow">in</span> <span class="n">veto</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">pcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+        <span class="n">veto</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    <span class="c1"># The first pc is the bass, the remaining ps</span>
+    <span class="c1"># are sorted to treat each inversion the same</span>
+    <span class="c1"># independent of the permutations.</span>
+    <span class="n">pcs</span> <span class="o">=</span> <span class="p">[</span><span class="n">pcs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pcs</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">base10toN</span><span class="p">,</span> <span class="n">pcs</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Orbichord</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../orbichord.html">orbichord package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Victor E. Bazterra.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

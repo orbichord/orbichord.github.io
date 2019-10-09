@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>orbichord.generator &#8212; Orbichord 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for orbichord.generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Generate quotient space of n-pich classes.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations_with_replacement</span>
+<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="k">import</span> <span class="n">IdentifiedChord</span>
+<span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="k">import</span> <span class="n">hasChordSymbolFigure</span>
+
+
+<div class="viewcode-block" id="Generator"><a class="viewcode-back" href="../../orbichord.html#orbichord.generator.Generator">[docs]</a><span class="k">class</span> <span class="nc">Generator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate the space of n-pitches chords.</span>
+
+<span class="sd">    Generate the space of n-pitches chords. The list of pitches to be used in</span>
+<span class="sd">    the generation needs to be provided when instantiating the generator.</span>
+
+<span class="sd">    It is assumed that chords are musical objects which are at least invariant</span>
+<span class="sd">    under</span>
+<span class="sd">        * scale pitch shifts (O),</span>
+<span class="sd">        * pitch permutation (P),</span>
+<span class="sd">        * pitch cardinality or dimension (C)</span>
+
+<span class="sd">    By default chords with repeated pitches are not identified as the same</span>
+<span class="sd">    chord. If you wish to do so, you can pass an identitying function that</span>
+<span class="sd">    provides a hashable object to classify different objects as the same chord.</span>
+<span class="sd">    On the first object of the identification will be yield by the generator.</span>
+
+<span class="sd">    You can further restrict the generation of chords by passing a select</span>
+<span class="sd">    function that restricts the type of chords yielded by the generator.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pitches</span>
+<span class="sd">    dimension</span>
+<span class="sd">    combinator</span>
+<span class="sd">    identity</span>
+<span class="sd">    select</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">pitches</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">combinator</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Iterator</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">combinations_with_replacement</span><span class="p">,</span>
+        <span class="n">identify</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Chord</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="k">lambda</span> <span class="n">chord</span><span class="p">:</span> <span class="n">chord</span><span class="o">.</span><span class="n">orderedPitchClassesString</span><span class="p">,</span>
+        <span class="n">select</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Chord</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasChordSymbolFigure</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the generator (Constructor).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            pitches : list</span>
+<span class="sd">                List of music21.pitch.Pitch.</span>
+<span class="sd">            dimension : int, optional</span>
+<span class="sd">                Dimension of the space.</span>
+<span class="sd">            combinator : Callable[[Iterable, int], Iterator], optional</span>
+<span class="sd">                Iterator function to generate all chord combinations.</span>
+<span class="sd">            identify : Callable[Chord, str], optional</span>
+<span class="sd">                Funtion to indentify chords.</span>
+<span class="sd">            select : Callable[Chord, str], optional</span>
+<span class="sd">                Function to select chords.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">        -------</span>
+<span class="sd">            ValueError</span>
+<span class="sd">                if the dimension is negative.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Sanity checks</span>
+        <span class="k">if</span> <span class="n">dimension</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The dimension has to be larger than zero.&#39;</span><span class="p">)</span>
+        <span class="c1"># Setting private values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pitches</span> <span class="o">=</span> <span class="n">pitches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span> <span class="o">=</span> <span class="n">dimension</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_combinator</span> <span class="o">=</span> <span class="n">combinator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identify</span> <span class="o">=</span> <span class="n">identify</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_select</span> <span class="o">=</span> <span class="n">select</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pitches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the generator pitches.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pitches</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the generator dimension.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">combinator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the generator combinator.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combinator</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the function use to identify chords.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identify</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return function to select chords.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_copy_fix_octaves</span><span class="p">(</span><span class="n">pitches</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make chord octive consistent with their</span>
+<span class="sd">        location within the chord.&quot;&quot;&quot;</span>
+        <span class="n">octave</span> <span class="o">=</span> <span class="n">pitches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">octave</span>
+        <span class="n">new_pitches</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pitch</span> <span class="ow">in</span> <span class="n">pitches</span><span class="p">:</span>
+            <span class="n">new_pitch</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pitch</span><span class="p">)</span>
+            <span class="n">new_pitch</span><span class="o">.</span><span class="n">octave</span> <span class="o">-=</span> <span class="n">octave</span>
+            <span class="n">new_pitches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pitch</span><span class="p">)</span>
+        <span class="n">pitches</span> <span class="o">=</span> <span class="n">new_pitches</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pitches</span><span class="p">)):</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">pitches</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">pitches</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="k">while</span> <span class="n">prev</span> <span class="o">&gt;</span> <span class="n">curr</span><span class="p">:</span>
+                <span class="n">curr</span><span class="o">.</span><span class="n">octave</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">pitches</span>
+
+<div class="viewcode-block" id="Generator.run"><a class="viewcode-back" href="../../orbichord.html#orbichord.generator.Generator.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Chord</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Generate a sequence of chords.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">            Iterator[Chord]</span>
+<span class="sd">                An iterator to the chords in the space.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># List of identified chords</span>
+        <span class="n">vetoed_chords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Sample the chord space as combination with</span>
+        <span class="c1"># replacement of the scale pitches.</span>
+        <span class="k">for</span> <span class="n">ntuple</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combinator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pitches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span>
+        <span class="p">):</span>
+            <span class="c1"># Generate the chord</span>
+            <span class="n">chord</span> <span class="o">=</span> <span class="n">IdentifiedChord</span><span class="p">(</span>
+                <span class="n">identify</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identify</span><span class="p">,</span>
+                <span class="n">notes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_fix_octaves</span><span class="p">(</span><span class="n">ntuple</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Veto identical chords</span>
+            <span class="k">if</span> <span class="n">chord</span> <span class="ow">in</span> <span class="n">vetoed_chords</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">vetoed_chords</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chord</span><span class="p">)</span>
+            <span class="c1"># select the chord?</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">chord</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">yield</span> <span class="n">chord</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Orbichord</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../orbichord.html">orbichord package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Victor E. Bazterra.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
