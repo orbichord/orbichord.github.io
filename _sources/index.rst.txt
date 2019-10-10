@@ -8,8 +8,8 @@ Welcome to Orbichord's documentation!
 
 .. toctree::
   :maxdepth: 2
-  :caption: Contents:
 
+  user_guide/index
   orbichord
 
 Indices and tables

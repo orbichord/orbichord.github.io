@@ -1,9 +1,6 @@
 orbichord package
 =================
 
-Submodules
-----------
-
 orbichord.chord module
 ----------------------
 

@@ -1,7 +1,0 @@
-orbichord
-=========
-
-.. toctree::
-   :maxdepth: 4
-
-   orbichord
