@@ -51,6 +51,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">        chord : Chord</span>
 <span class="sd">            Chord to be identified.</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        bool:</span>
@@ -62,7 +63,8 @@
 
 <div class="viewcode-block" id="chordSymbolFigure"><a class="viewcode-back" href="../../orbichord.html#orbichord.symbol.chordSymbolFigure">[docs]</a><span class="k">def</span> <span class="nf">chordSymbolFigure</span><span class="p">(</span>
         <span class="n">chord</span> <span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
-        <span class="n">inversion</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">inversion</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">enharmonic</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Identify chords based chord symbol figure.</span>
 
@@ -72,8 +74,11 @@
 <span class="sd">    ----------</span>
 <span class="sd">        chord : Chord</span>
 <span class="sd">            Chord to be identified.</span>
-<span class="sd">        inversion : int</span>
+<span class="sd">        inversion : int, optional</span>
 <span class="sd">            Inversion index.</span>
+<span class="sd">        enharmonic : int, optional</span>
+<span class="sd">            Enharmonic index</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        str</span>
@@ -84,10 +89,10 @@
         <span class="k">return</span> <span class="n">chord</span><span class="o">.</span><span class="n">pitchClasses</span>
     <span class="n">figure</span><span class="p">,</span> <span class="n">inversions</span> <span class="o">=</span> <span class="n">SYMBOL_INDEX_TO_FIGURE</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">inversion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">figure</span>
+        <span class="k">return</span> <span class="n">figure</span><span class="p">[</span><span class="n">enharmonic</span><span class="p">]</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">inversions</span><span class="p">[</span><span class="n">inversion</span><span class="p">]</span>
     <span class="n">figure</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">SYMBOL_INDEX_TO_FIGURE</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">figure</span></div>
+    <span class="k">return</span> <span class="n">figure</span><span class="p">[</span><span class="n">enharmonic</span><span class="p">]</span></div>
 </pre></div>
 
           </div>

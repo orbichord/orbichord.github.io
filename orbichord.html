@@ -17,7 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Chromatic voice leading in common chords" href="user_guide/chromatic_voice_leading_in_triads.html" />
+    <link rel="prev" title="Chromatic voice leading in common tetrachords" href="user_guide/chromatic_voice_leading_in_common_tetrachords.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -103,21 +103,33 @@ map a chord in to a string.</p>
 <em class="property">class </em><code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">EfficientVoiceLeading</code><span class="sig-paren">(</span><em class="sig-param">scale: music21.scale.ConcreteScale, metric: Callable[[list], float], permutation: orbichord.chordinate.Permutation = &lt;Permutation.ANY: 3&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chordinate.html#EfficientVoiceLeading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Compute efficient voice leading between two chords.</p>
-<dl class="attribute">
-<dt id="orbichord.chordinate.EfficientVoiceLeading.scale">
-<code class="sig-name descname">scale</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.scale" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.chordinate.EfficientVoiceLeading.metric">
-<code class="sig-name descname">metric</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.metric" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.chordinate.EfficientVoiceLeading.permutation">
-<code class="sig-name descname">permutation</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.permutation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>ConcreteScale</em>) – Scale use to define voice leading steps</p></li>
+<li><p><strong>metric</strong> (<em>Callable</em><em>[</em><em>[</em><em>list</em><em>]</em><em>, </em><em>float</em><em>]</em>) – Metric function</p></li>
+<li><p><strong>permutation</strong> (<a class="reference internal" href="#orbichord.chordinate.Permutation" title="orbichord.chordinate.Permutation"><em>Permutation</em></a><em>, </em><em>optional</em>) – Permutation invariance in the voice leading.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">inf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">EfficientVoiceLeading</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;G B D&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">voice_leading</span> <span class="o">=</span> <span class="n">EfficientVoiceLeading</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">metric</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">delta</span><span class="p">:</span> <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">inf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vl</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">voice_leading</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+<span class="go">[-1, -1, 0] 1.0</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="orbichord.chordinate.EfficientVoiceLeading.__call__">
 <code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">chordA: music21.chord.Chord</em>, <em class="sig-param">chordB: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/orbichord/chordinate.html#EfficientVoiceLeading.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.__call__" title="Permalink to this definition">¶</a></dt>
@@ -139,20 +151,20 @@ map a chord in to a string.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">metric</code></dt>
+<dt id="orbichord.chordinate.EfficientVoiceLeading.metric">
+<em class="property">property </em><code class="sig-name descname">metric</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.metric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging metric.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">permutation</code></dt>
+<dt id="orbichord.chordinate.EfficientVoiceLeading.permutation">
+<em class="property">property </em><code class="sig-name descname">permutation</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.permutation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging metric.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">scale</code></dt>
+<dt id="orbichord.chordinate.EfficientVoiceLeading.scale">
+<em class="property">property </em><code class="sig-name descname">scale</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging scale.</p>
 </dd></dl>
 
@@ -182,7 +194,7 @@ map a chord in to a string.</p>
 
 <dl class="function">
 <dt id="orbichord.chordinate.interscalarMatrix">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">interscalarMatrix</code><span class="sig-paren">(</span><em class="sig-param">chordA: music21.chord.Chord</em>, <em class="sig-param">chordB: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em>, <em class="sig-param">permutation: orbichord.chordinate.Permutation = &lt;Permutation.ANY: 3&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#interscalarMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.interscalarMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">interscalarMatrix</code><span class="sig-paren">(</span><em class="sig-param">chordA: music21.chord.Chord</em>, <em class="sig-param">chordB: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em>, <em class="sig-param">cardinality: bool = True</em>, <em class="sig-param">permutation: orbichord.chordinate.Permutation = &lt;Permutation.ANY: 3&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#interscalarMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.interscalarMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the interscalar matrix between two chords</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -190,6 +202,7 @@ map a chord in to a string.</p>
 <li><p><strong>chrodA</strong> (<em>Chrod</em>) – Voice leading start chord.</p></li>
 <li><p><strong>chrodA</strong> – Voice leading end chord</p></li>
 <li><p><strong>scale</strong> (<em>ConcreteScale</em>) – Scale use a metric.</p></li>
+<li><p><strong>cardinality</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true chord cardinality is invariant.</p></li>
 <li><p><strong>permutation</strong> (<a class="reference internal" href="#orbichord.chordinate.Permutation" title="orbichord.chordinate.Permutation"><em>Permutation</em></a><em>, </em><em>optional</em>) – Permutation invariance in the interscalar matrix.</p></li>
 </ul>
 </dd>
@@ -200,6 +213,20 @@ map a chord in to a string.</p>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">interscalarMatrix</span><span class="p">,</span> <span class="n">Permutation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chordA</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chordB</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;A C E&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="o">=</span> <span class="n">interscalarMatrix</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">chordA</span><span class="p">,</span> <span class="n">chordB</span><span class="p">,</span> <span class="n">scale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="go">[[0, 0, 1], [2, 3, 3], [-2, -2, -2]]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -210,9 +237,9 @@ shortest possible voice leading.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="orbichord.chordinate.scalarPoint">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">scalarPoint</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#scalarPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.scalarPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provide chord scalar point using a given scale steps</p>
+<dt id="orbichord.chordinate.scalePoint">
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">scalePoint</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#scalePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.scalePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute chord coordinates using the degree for a given scale</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -227,17 +254,28 @@ shortest possible voice leading.</p>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">scalePoint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chord</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scalePoint</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+<span class="go">[0, 2, 4]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="orbichord.chordinate.standardSimplex">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">standardSimplex</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#standardSimplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.standardSimplex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provide chord scalar point in the standard simplex</p>
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">standardSimplex</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em>, <em class="sig-param">normalize: bool = True</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#standardSimplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.standardSimplex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute chord scale point in the standard simplex</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chrod</strong> (<em>Chrod</em>) – Chord to estimate normal order</p></li>
 <li><p><strong>scale</strong> (<em>ConcreteScale</em>) – Scale use as metric step</p></li>
+<li><p><strong>normalize</strong> (<em>int</em><em>, </em><em>optional</em>) – Normalize coordinates by the number of scale degrees</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -247,6 +285,18 @@ shortest possible voice leading.</p>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">ChromaticScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">standardSimplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">ChromaticScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chord</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">standardSimplex</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+<span class="go">[0.9166666666666666, 0.3333333333333333, 0.25]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">standardSimplex</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[11, 4, 3]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -261,54 +311,77 @@ shortest possible voice leading.</p>
 <p>Generate the space of n-pitches chords. The list of pitches to be used in
 the generation needs to be provided when instantiating the generator.</p>
 <p>It is assumed that chords are musical objects which are at least invariant
-under</p>
+under scale pitch shifts (O). Any other invariance depends on how chord
+pitches are combined and how chords are identified.</p>
+<p>You can further restrict the generation of chords by passing a select
+function that restricts the type of chords yielded by the generator.</p>
+<p>By default, the generator will produce 3-pitched chords with the same
+invariances as a pitch-class ser:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>scale pitch shifts (O),</p></li>
-<li><p>pitch permutation (P),</p></li>
-<li><p>pitch cardinality or dimension (C)</p></li>
+<li><p>pitch class permutation (P),</p></li>
+<li><p>pitch class cardinality (C)</p></li>
 </ul>
 </div></blockquote>
-<p>By default chords with repeated pitches are not identified as the same
-chord. If you wish to do so, you can pass an identitying function that
-provides a hashable object to classify different objects as the same chord.
-On the first object of the identification will be yield by the generator.</p>
-<p>You can further restrict the generation of chords by passing a select
-function that restricts the type of chords yielded by the generator.</p>
-<dl class="attribute">
-<dt id="orbichord.generator.Generator.pitches">
-<code class="sig-name descname">pitches</code><a class="headerlink" href="#orbichord.generator.Generator.pitches" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.generator.Generator.dimension">
-<code class="sig-name descname">dimension</code><a class="headerlink" href="#orbichord.generator.Generator.dimension" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.generator.Generator.combinator">
-<code class="sig-name descname">combinator</code><a class="headerlink" href="#orbichord.generator.Generator.combinator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.generator.Generator.identity">
-<code class="sig-name descname">identity</code><a class="headerlink" href="#orbichord.generator.Generator.identity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="orbichord.generator.Generator.select">
-<code class="sig-name descname">select</code><a class="headerlink" href="#orbichord.generator.Generator.select" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>Moreover, by default only chords with know symbols are selected to be
+generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pitches</strong> (<em>list</em>) – List of music21.pitch.Pitch.</p></li>
+<li><p><strong>dimension</strong> (<em>int</em><em>, </em><em>optional</em>) – Dimension of the space.</p></li>
+<li><p><strong>combinator</strong> (<em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Iterator</em><em>]</em><em>, </em><em>optional</em>) – Iterator function to generate all chord combinations.</p></li>
+<li><p><strong>identify</strong> (<em>Callable</em><em>[</em><em>Chord</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Funtion to indentify chords.</p></li>
+<li><p><strong>select</strong> (<em>Callable</em><em>[</em><em>Chord</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Function to select chords.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the dimension is negative.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Tymoczko, Dmitri. “The geometry of musical chords.”
+Science 313.5783 (2006): 72-74.</p></li>
+<li><p>Callender, Clifton, Ian Quinn, and Dmitri Tymoczko.
+“Generalized voice-leading spaces.” Science 320.5874 (2008): 346-348.</p></li>
+<li><p>Dmitri Tymoczko, A Geometry of Music: Harmony and Counterpoint
+in the Extended Common Practice, Oxford University Press, 2011.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.generator</span> <span class="k">import</span> <span class="n">Generator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="k">import</span> <span class="n">chordSymbolFigure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chord_generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">pitches</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">getPitches</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">select</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">chord</span><span class="p">:</span> <span class="n">chord</span><span class="o">.</span><span class="n">isTriad</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chord</span> <span class="ow">in</span> <span class="n">chord_generator</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> - </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">chord</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">chord</span><span class="o">.</span><span class="n">orderedPitchClassesString</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">chordSymbolFigure</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">inversion</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">))</span>
+<span class="go">&lt;music21.chord.Chord C0 E0 G0&gt; &lt;047&gt; - C</span>
+<span class="go">&lt;music21.chord.Chord C0 E0 A0&gt; &lt;049&gt; - Am</span>
+<span class="go">&lt;music21.chord.Chord C0 F0 A0&gt; &lt;059&gt; - F</span>
+<span class="go">&lt;music21.chord.Chord D0 F0 A0&gt; &lt;259&gt; - Dm</span>
+<span class="go">&lt;music21.chord.Chord D0 F0 B0&gt; &lt;25B&gt; - Bdim</span>
+<span class="go">&lt;music21.chord.Chord D0 G0 B0&gt; &lt;27B&gt; - G</span>
+<span class="go">&lt;music21.chord.Chord E0 G0 B0&gt; &lt;47B&gt; - Em</span>
+</pre></div>
+</div>
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">combinator</code></dt>
+<dt id="orbichord.generator.Generator.combinator">
+<em class="property">property </em><code class="sig-name descname">combinator</code><a class="headerlink" href="#orbichord.generator.Generator.combinator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator combinator.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">dimension</code></dt>
+<dt id="orbichord.generator.Generator.dimension">
+<em class="property">property </em><code class="sig-name descname">dimension</code><a class="headerlink" href="#orbichord.generator.Generator.dimension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator dimension.</p>
 </dd></dl>
 
@@ -319,8 +392,8 @@ function that restricts the type of chords yielded by the generator.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">pitches</code></dt>
+<dt id="orbichord.generator.Generator.pitches">
+<em class="property">property </em><code class="sig-name descname">pitches</code><a class="headerlink" href="#orbichord.generator.Generator.pitches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator pitches.</p>
 </dd></dl>
 
@@ -336,8 +409,8 @@ function that restricts the type of chords yielded by the generator.</p>
 </dd></dl>
 
 <dl class="method">
-<dt>
-<em class="property">property </em><code class="sig-name descname">select</code></dt>
+<dt id="orbichord.generator.Generator.select">
+<em class="property">property </em><code class="sig-name descname">select</code><a class="headerlink" href="#orbichord.generator.Generator.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return function to select chords.</p>
 </dd></dl>
 
@@ -350,7 +423,7 @@ function that restricts the type of chords yielded by the generator.</p>
 <dl class="function">
 <dt id="orbichord.graph.convertGraphToData">
 <code class="sig-prename descclassname">orbichord.graph.</code><code class="sig-name descname">convertGraphToData</code><span class="sig-paren">(</span><em class="sig-param">graph: networkx.classes.graph.Graph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/graph.html#convertGraphToData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.graph.convertGraphToData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a chrod graph to columnal dataset.</p>
+<dd><p>Convert a chord graph to columnal dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>graph</strong> (<em>Graph</em>) – A graph of chords.</p>
@@ -379,14 +452,10 @@ function that restricts the type of chords yielded by the generator.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>Graph</dt><dd><p>Networkx Graph object.</p>
-</dd>
-</dl>
-</p>
+<dd class="field-even"><p><strong>graph</strong> – Networkx Graph object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>graph</p>
+<dd class="field-odd"><p>Graph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -397,9 +466,26 @@ function that restricts the type of chords yielded by the generator.</p>
 <p>Define a set of common chord identyfier.</p>
 <dl class="function">
 <dt id="orbichord.identify.base10toN">
-<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">base10toN</code><span class="sig-paren">(</span><em class="sig-param">num</em>, <em class="sig-param">base=12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/identify.html#base10toN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.base10toN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change to given base upto base 36 is supported.
-<a class="reference external" href="http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/">http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/</a></p>
+<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">base10toN</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">base: int = 12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/identify.html#base10toN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.base10toN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change to given base upto base 36 is supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<em>int</em>) – Integer to be transform to new base.</p></li>
+<li><p><strong>base</strong> (<em>int</em>) – Based to use write the integer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String with number digits in new base.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/">http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/</a></p></li>
+</ul>
 </dd></dl>
 
 <dl class="function">
@@ -463,14 +549,15 @@ function that restricts the type of chords yielded by the generator.</p>
 <p>Map postonal chord names to symbols commonly found on lead sheets.</p>
 <dl class="function">
 <dt id="orbichord.symbol.chordSymbolFigure">
-<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">chordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">inversion: int = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/symbol.html#chordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.chordSymbolFigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">chordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">inversion: int = None</em>, <em class="sig-param">enharmonic: int = 0</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/symbol.html#chordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.chordSymbolFigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify chords based chord symbol figure.</p>
 <p>This only applies to chords commonly found on lead sheets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chord</strong> (<em>Chord</em>) – Chord to be identified.</p></li>
-<li><p><strong>inversion</strong> (<em>int</em>) – Inversion index.</p></li>
+<li><p><strong>inversion</strong> (<em>int</em><em>, </em><em>optional</em>) – Inversion index.</p></li>
+<li><p><strong>enharmonic</strong> (<em>int</em><em>, </em><em>optional</em>) – Enharmonic index</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -506,31 +593,29 @@ function that restricts the type of chords yielded by the generator.</p>
 <dl class="function">
 <dt id="orbichord.utils.playAudio">
 <code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">playAudio</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#playAudio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.playAudio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generate audio play from stream.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="orbichord.utils.renderWithJS">
 <code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithJS</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithJS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithJS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a using javascript.</p>
-<dl class="simple">
-<dt>Reference:</dt><dd><p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
-</dd>
-</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="orbichord.utils.renderWithLily">
 <code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithLily</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithLily"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithLily" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Render LilyPond in Jupyter notebook.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="orbichord.utils.showMusicXML">
 <code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">showMusicXML</code><span class="sig-paren">(</span><em class="sig-param">xml</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#showMusicXML"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.showMusicXML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show music xml using javascript.</p>
-<dl class="simple">
-<dt>Reference:</dt><dd><p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
-</dd>
-</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
 </dd></dl>
 
 </div>
@@ -576,7 +661,7 @@ function that restricts the type of chords yielded by the generator.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="user_guide/chromatic_voice_leading_in_triads.html" title="previous chapter">Chromatic voice leading in common chords</a></li>
+      <li>Previous: <a href="user_guide/chromatic_voice_leading_in_common_tetrachords.html" title="previous chapter">Chromatic voice leading in common tetrachords</a></li>
   </ul></li>
 </ul>
 </div>

@@ -41,9 +41,24 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
 
 
-<div class="viewcode-block" id="base10toN"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.base10toN">[docs]</a><span class="k">def</span> <span class="nf">base10toN</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<div class="viewcode-block" id="base10toN"><a class="viewcode-back" href="../../orbichord.html#orbichord.identify.base10toN">[docs]</a><span class="k">def</span> <span class="nf">base10toN</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Change to given base upto base 36 is supported.</span>
-<span class="sd">    http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            Integer to be transform to new base.</span>
+<span class="sd">        base : int</span>
+<span class="sd">            Based to use write the integer.</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">        str</span>
+<span class="sd">            String with number digits in new base.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">        * http://code.activestate.com/recipes/577586-converts-from-decimal-to-any-base-between-2-and-26/</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">converted_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">currentnum</span> <span class="o">=</span> <span class="n">num</span>
@@ -65,6 +80,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">        chord : Chord</span>
 <span class="sd">            Chord to be identified.</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        str</span>
@@ -81,6 +97,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">        chord : Chord</span>
 <span class="sd">            Chord to be identified.</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        str</span>
@@ -102,6 +119,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">        chord : Chord</span>
 <span class="sd">            Chord to be identified.</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        str</span>

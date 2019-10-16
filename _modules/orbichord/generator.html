@@ -51,26 +51,70 @@
 <span class="sd">    the generation needs to be provided when instantiating the generator.</span>
 
 <span class="sd">    It is assumed that chords are musical objects which are at least invariant</span>
-<span class="sd">    under</span>
-<span class="sd">        * scale pitch shifts (O),</span>
-<span class="sd">        * pitch permutation (P),</span>
-<span class="sd">        * pitch cardinality or dimension (C)</span>
-
-<span class="sd">    By default chords with repeated pitches are not identified as the same</span>
-<span class="sd">    chord. If you wish to do so, you can pass an identitying function that</span>
-<span class="sd">    provides a hashable object to classify different objects as the same chord.</span>
-<span class="sd">    On the first object of the identification will be yield by the generator.</span>
+<span class="sd">    under scale pitch shifts (O). Any other invariance depends on how chord</span>
+<span class="sd">    pitches are combined and how chords are identified.</span>
 
 <span class="sd">    You can further restrict the generation of chords by passing a select</span>
 <span class="sd">    function that restricts the type of chords yielded by the generator.</span>
 
-<span class="sd">    Attributes</span>
+<span class="sd">    By default, the generator will produce 3-pitched chords with the same</span>
+<span class="sd">    invariances as a pitch-class ser:</span>
+<span class="sd">        * scale pitch shifts (O),</span>
+<span class="sd">        * pitch class permutation (P),</span>
+<span class="sd">        * pitch class cardinality (C)</span>
+<span class="sd">    Moreover, by default only chords with know symbols are selected to be</span>
+<span class="sd">    generated.</span>
+
+<span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pitches</span>
-<span class="sd">    dimension</span>
-<span class="sd">    combinator</span>
-<span class="sd">    identity</span>
-<span class="sd">    select</span>
+<span class="sd">        pitches : list</span>
+<span class="sd">            List of music21.pitch.Pitch.</span>
+<span class="sd">        dimension : int, optional</span>
+<span class="sd">            Dimension of the space.</span>
+<span class="sd">        combinator : Callable[[Iterable, int], Iterator], optional</span>
+<span class="sd">            Iterator function to generate all chord combinations.</span>
+<span class="sd">        identify : Callable[Chord, str], optional</span>
+<span class="sd">            Funtion to indentify chords.</span>
+<span class="sd">        select : Callable[Chord, str], optional</span>
+<span class="sd">            Function to select chords.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            if the dimension is negative.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">        * Tymoczko, Dmitri. “The geometry of musical chords.”</span>
+<span class="sd">          Science 313.5783 (2006): 72-74.</span>
+<span class="sd">        * Callender, Clifton, Ian Quinn, and Dmitri Tymoczko.</span>
+<span class="sd">          “Generalized voice-leading spaces.” Science 320.5874 (2008): 346-348.</span>
+<span class="sd">        * Dmitri Tymoczko, A Geometry of Music: Harmony and Counterpoint</span>
+<span class="sd">          in the Extended Common Practice, Oxford University Press, 2011.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.generator import Generator</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.symbol import chordSymbolFigure</span>
+<span class="sd">    &gt;&gt;&gt; from music21.scale import MajorScale</span>
+<span class="sd">    &gt;&gt;&gt; scale = MajorScale(&#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; chord_generator = Generator(</span>
+<span class="sd">    ...     pitches = scale.getPitches(&#39;C&#39;,&#39;B&#39;),</span>
+<span class="sd">    ...     select = lambda chord: chord.isTriad()</span>
+<span class="sd">    &gt;&gt;&gt; )</span>
+<span class="sd">    &gt;&gt;&gt; for chord in chord_generator.run():</span>
+<span class="sd">    ...     print(&#39;{} {} - {}&#39;.format(</span>
+<span class="sd">    ...     chord,</span>
+<span class="sd">    ...     chord.orderedPitchClassesString,</span>
+<span class="sd">    ...     chordSymbolFigure(chord, inversion=0)</span>
+<span class="sd">    ... ))</span>
+<span class="sd">    &lt;music21.chord.Chord C0 E0 G0&gt; &lt;047&gt; - C</span>
+<span class="sd">    &lt;music21.chord.Chord C0 E0 A0&gt; &lt;049&gt; - Am</span>
+<span class="sd">    &lt;music21.chord.Chord C0 F0 A0&gt; &lt;059&gt; - F</span>
+<span class="sd">    &lt;music21.chord.Chord D0 F0 A0&gt; &lt;259&gt; - Dm</span>
+<span class="sd">    &lt;music21.chord.Chord D0 F0 B0&gt; &lt;25B&gt; - Bdim</span>
+<span class="sd">    &lt;music21.chord.Chord D0 G0 B0&gt; &lt;27B&gt; - G</span>
+<span class="sd">    &lt;music21.chord.Chord E0 G0 B0&gt; &lt;47B&gt; - Em</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -82,25 +126,7 @@
             <span class="k">lambda</span> <span class="n">chord</span><span class="p">:</span> <span class="n">chord</span><span class="o">.</span><span class="n">orderedPitchClassesString</span><span class="p">,</span>
         <span class="n">select</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Chord</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasChordSymbolFigure</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the generator (Constructor).</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">            pitches : list</span>
-<span class="sd">                List of music21.pitch.Pitch.</span>
-<span class="sd">            dimension : int, optional</span>
-<span class="sd">                Dimension of the space.</span>
-<span class="sd">            combinator : Callable[[Iterable, int], Iterator], optional</span>
-<span class="sd">                Iterator function to generate all chord combinations.</span>
-<span class="sd">            identify : Callable[Chord, str], optional</span>
-<span class="sd">                Funtion to indentify chords.</span>
-<span class="sd">            select : Callable[Chord, str], optional</span>
-<span class="sd">                Function to select chords.</span>
-<span class="sd">        Raises:</span>
-<span class="sd">        -------</span>
-<span class="sd">            ValueError</span>
-<span class="sd">                if the dimension is negative.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.&quot;&quot;&quot;</span>
         <span class="c1"># Sanity checks</span>
         <span class="k">if</span> <span class="n">dimension</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The dimension has to be larger than zero.&#39;</span><span class="p">)</span>

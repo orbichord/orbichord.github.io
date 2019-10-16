@@ -46,11 +46,11 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
 
 
-<div class="viewcode-block" id="scalarPoint"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.scalarPoint">[docs]</a><span class="k">def</span> <span class="nf">scalarPoint</span><span class="p">(</span>
+<div class="viewcode-block" id="scalePoint"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.scalePoint">[docs]</a><span class="k">def</span> <span class="nf">scalePoint</span><span class="p">(</span>
     <span class="n">chord</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
     <span class="n">scale</span><span class="p">:</span> <span class="n">ConcreteScale</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Provide chord scalar point using a given scale steps</span>
+    <span class="sd">&quot;&quot;&quot;Compute chord coordinates using the degree for a given scale</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -58,10 +58,21 @@
 <span class="sd">            Chord to estimate normal order</span>
 <span class="sd">        scale : ConcreteScale</span>
 <span class="sd">            Scale use as metric step</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        list</span>
 <span class="sd">            List with scalar normal order</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from music21.chord import Chord</span>
+<span class="sd">    &gt;&gt;&gt; from music21.scale import MajorScale</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.chordinate import scalePoint</span>
+<span class="sd">    &gt;&gt;&gt; scale = MajorScale(&#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; chord = Chord(&#39;C E G&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; scalePoint(chord, scale)</span>
+<span class="sd">    [0, 2, 4]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Chordinates</span>
     <span class="n">point</span> <span class="o">=</span> <span class="p">[]</span>
@@ -77,9 +88,10 @@
 
 <div class="viewcode-block" id="standardSimplex"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.standardSimplex">[docs]</a><span class="k">def</span> <span class="nf">standardSimplex</span><span class="p">(</span>
     <span class="n">chord</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
-    <span class="n">scale</span><span class="p">:</span> <span class="n">ConcreteScale</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">ConcreteScale</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Provide chord scalar point in the standard simplex</span>
+    <span class="sd">&quot;&quot;&quot;Compute chord scale point in the standard simplex</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -87,14 +99,29 @@
 <span class="sd">            Chord to estimate normal order</span>
 <span class="sd">        scale : ConcreteScale</span>
 <span class="sd">            Scale use as metric step</span>
+<span class="sd">        normalize : int, optional</span>
+<span class="sd">            Normalize coordinates by the number of scale degrees</span>
+
 <span class="sd">    Return</span>
 <span class="sd">    ------</span>
 <span class="sd">        list</span>
 <span class="sd">            List with scalar point within standard simplex</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from music21.chord import Chord</span>
+<span class="sd">    &gt;&gt;&gt; from music21.scale import ChromaticScale</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.chordinate import standardSimplex</span>
+<span class="sd">    &gt;&gt;&gt; scale = ChromaticScale(&#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; chord = Chord(&#39;C E G&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; standardSimplex(chord, scale)</span>
+<span class="sd">    [0.9166666666666666, 0.3333333333333333, 0.25]</span>
+<span class="sd">    &gt;&gt;&gt; standardSimplex(chord, scale, normalize=False)</span>
+<span class="sd">    [11, 4, 3]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get scale max degree and compute scalar point</span>
     <span class="n">max_scale_degree</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">getDegreeMaxUnique</span><span class="p">()</span>
-    <span class="n">point</span> <span class="o">=</span> <span class="n">scalarPoint</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="n">scalePoint</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
     <span class="c1"># Reduce to the standard simplex</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
     <span class="n">sumchord</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
@@ -108,10 +135,13 @@
     <span class="c1"># Apply affine transformation</span>
     <span class="n">previous</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimension</span><span class="p">):</span>
-        <span class="n">interval</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">previous</span><span class="p">)</span><span class="o">/</span><span class="n">max_scale_degree</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">previous</span>
         <span class="n">previous</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">point</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">interval</span>
-    <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sumchord</span><span class="o">/</span><span class="n">max_scale_degree</span>
+    <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sumchord</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)):</span>
+            <span class="n">point</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/=</span> <span class="n">max_scale_degree</span>
     <span class="k">return</span> <span class="n">point</span></div>
 
 
@@ -137,6 +167,7 @@
     <span class="n">chordA</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
     <span class="n">chordB</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
     <span class="n">scale</span><span class="p">:</span> <span class="n">ConcreteScale</span><span class="p">,</span>
+    <span class="n">cardinality</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">permutation</span><span class="p">:</span> <span class="n">Permutation</span> <span class="o">=</span> <span class="n">Permutation</span><span class="o">.</span><span class="n">ANY</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Compute the interscalar matrix between two chords</span>
@@ -149,6 +180,8 @@
 <span class="sd">            Voice leading end chord</span>
 <span class="sd">        scale : ConcreteScale</span>
 <span class="sd">            Scale use a metric.</span>
+<span class="sd">        cardinality: bool, optional</span>
+<span class="sd">            If true chord cardinality is invariant.</span>
 <span class="sd">        permutation : Permutation, optional</span>
 <span class="sd">            Permutation invariance in the interscalar matrix.</span>
 
@@ -156,11 +189,31 @@
 <span class="sd">    ------</span>
 <span class="sd">        list</span>
 <span class="sd">            List of voice leading scalar steps</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from music21.chord import Chord</span>
+<span class="sd">    &gt;&gt;&gt; from music21.scale import MajorScale</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.chordinate import interscalarMatrix, Permutation</span>
+<span class="sd">    &gt;&gt;&gt; scale = MajorScale(&#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; chordA = Chord(&#39;C E G&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; chordB = Chord(&#39;A C E&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; matrix = interscalarMatrix(</span>
+<span class="sd">    ...     chordA, chordB, scale</span>
+<span class="sd">    &gt;&gt;&gt; )</span>
+<span class="sd">    &gt;&gt;&gt; print(matrix)</span>
+<span class="sd">    [[0, 0, 1], [2, 3, 3], [-2, -2, -2]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pointA</span> <span class="o">=</span> <span class="n">scalarPoint</span><span class="p">(</span><span class="n">chordA</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-    <span class="n">pointB</span> <span class="o">=</span> <span class="n">scalarPoint</span><span class="p">(</span><span class="n">chordB</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pointA</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pointB</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">chordA</span><span class="o">.</span><span class="n">multisetCardinality</span> <span class="o">!=</span> <span class="n">chordB</span><span class="o">.</span><span class="n">multisetCardinality</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Chords are not of the same dimension!&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cardinality</span><span class="p">:</span>
+        <span class="n">tmpA</span> <span class="o">=</span> <span class="n">chordA</span><span class="o">.</span><span class="n">removeRedundantPitchClasses</span><span class="p">(</span><span class="n">inPlace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">tmpB</span> <span class="o">=</span> <span class="n">chordB</span><span class="o">.</span><span class="n">removeRedundantPitchClasses</span><span class="p">(</span><span class="n">inPlace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tmpA</span><span class="o">.</span><span class="n">multisetCardinality</span> <span class="o">==</span> <span class="n">tmpB</span><span class="o">.</span><span class="n">multisetCardinality</span><span class="p">:</span>
+            <span class="n">chordA</span> <span class="o">=</span> <span class="n">tmpA</span>
+            <span class="n">chordB</span> <span class="o">=</span> <span class="n">tmpB</span>
+    <span class="n">pointA</span> <span class="o">=</span> <span class="n">scalePoint</span><span class="p">(</span><span class="n">chordA</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+    <span class="n">pointB</span> <span class="o">=</span> <span class="n">scalePoint</span><span class="p">(</span><span class="n">chordB</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">permutation</span> <span class="o">==</span> <span class="n">Permutation</span><span class="o">.</span><span class="n">ANY</span><span class="p">:</span>
         <span class="n">pointA</span><span class="o">.</span><span class="n">sort</span><span class="p">();</span> <span class="n">pointB</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pointA</span><span class="p">)</span>
@@ -182,11 +235,32 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute efficient voice leading between two chords.</span>
 
-<span class="sd">    Attributes</span>
+<span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    scale</span>
-<span class="sd">    metric</span>
-<span class="sd">    permutation</span>
+<span class="sd">        scale : ConcreteScale</span>
+<span class="sd">            Scale use to define voice leading steps</span>
+<span class="sd">        metric : Callable[[list], float]</span>
+<span class="sd">            Metric function</span>
+<span class="sd">        permutation : Permutation, optional</span>
+<span class="sd">            Permutation invariance in the voice leading.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from music21.chord import Chord</span>
+<span class="sd">    &gt;&gt;&gt; from music21.scale import MajorScale</span>
+<span class="sd">    &gt;&gt;&gt; from numpy import inf</span>
+<span class="sd">    &gt;&gt;&gt; from numpy import linalg as la</span>
+<span class="sd">    &gt;&gt;&gt; from orbichord.chordinate import EfficientVoiceLeading</span>
+<span class="sd">    &gt;&gt;&gt; scale = MajorScale(&#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; C = Chord(&#39;C E G&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; G = Chord(&#39;G B D&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; voice_leading = EfficientVoiceLeading(</span>
+<span class="sd">    ...     scale = scale,</span>
+<span class="sd">    ...     metric = lambda delta: la.norm(delta, inf)</span>
+<span class="sd">    &gt;&gt;&gt; )</span>
+<span class="sd">    &gt;&gt;&gt; vl, dist = voice_leading(C, G)</span>
+<span class="sd">    &gt;&gt;&gt; print(vl, dist)</span>
+<span class="sd">    [-1, -1, 0] 1.0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -194,16 +268,7 @@
         <span class="n">metric</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
         <span class="n">permutation</span><span class="p">:</span> <span class="n">Permutation</span> <span class="o">=</span> <span class="n">Permutation</span><span class="o">.</span><span class="n">ANY</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a efficient voice leading object</span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">            scale : ConcreteScale</span>
-<span class="sd">                Scale use to define voice leading steps</span>
-<span class="sd">            metric : Callable[[list], float]</span>
-<span class="sd">                Metric function</span>
-<span class="sd">            permutation : Permutation, optional</span>
-<span class="sd">                Permutation invariance in the voice leading.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="o">=</span> <span class="n">scale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metric</span> <span class="o">=</span> <span class="n">metric</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_permutation</span> <span class="o">=</span> <span class="n">permutation</span>
@@ -235,6 +300,7 @@
 <span class="sd">                Voice leading start chord</span>
 <span class="sd">            chrodA : Chrod</span>
 <span class="sd">                Voice leading end chord</span>
+
 <span class="sd">        Return</span>
 <span class="sd">        ------</span>
 <span class="sd">            tuple</span>
