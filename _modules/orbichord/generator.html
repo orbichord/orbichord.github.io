@@ -44,11 +44,11 @@
 <span></span><span class="sd">&quot;&quot;&quot;Generate quotient space of n-pich classes.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations_with_replacement</span>
-<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
-<span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="k">import</span> <span class="n">IdentifiedChord</span>
-<span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="k">import</span> <span class="n">hasChordSymbolFigure</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations_with_replacement</span>
+<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="kn">import</span> <span class="n">IdentifiedChord</span>
+<span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="kn">import</span> <span class="n">hasChordSymbolFigure</span>
 
 
 <div class="viewcode-block" id="Generator"><a class="viewcode-back" href="../../orbichord.html#orbichord.generator.Generator">[docs]</a><span class="k">class</span> <span class="nc">Generator</span><span class="p">:</span>
@@ -124,7 +124,7 @@
 <span class="sd">    &lt;music21.chord.Chord E0 G0 B0&gt; &lt;47B&gt; - Em</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
         <span class="n">pitches</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">dimension</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
         <span class="n">combinator</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Iterator</span><span class="p">]</span> <span class="o">=</span>\
@@ -278,7 +278,7 @@
       &copy;2019, Victor E. Bazterra.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -43,14 +43,14 @@
   <h1>Source code for orbichord.chordinate</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Implement tools to compute chordinates and distances in a given scale.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="kn">from</span> <span class="nn">music21.pitch</span> <span class="k">import</span> <span class="n">Pitch</span>
-<span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">ConcreteScale</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="kn">from</span> <span class="nn">music21.pitch</span> <span class="kn">import</span> <span class="n">Pitch</span>
+<span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">ConcreteScale</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 
 <div class="viewcode-block" id="scalePoint"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.scalePoint">[docs]</a><span class="k">def</span> <span class="nf">scalePoint</span><span class="p">(</span>
@@ -270,7 +270,7 @@
 <span class="sd">    [-1, -1, 0] 1.0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
         <span class="n">scale</span><span class="p">:</span> <span class="n">ConcreteScale</span><span class="p">,</span>
         <span class="n">metric</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
         <span class="n">permutation</span><span class="p">:</span> <span class="n">Permutation</span> <span class="o">=</span> <span class="n">Permutation</span><span class="o">.</span><span class="n">ANY</span>
@@ -295,7 +295,7 @@
         <span class="sd">&quot;&quot;&quot;Returns voice leaging metric.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_permutation</span>
 
-<div class="viewcode-block" id="EfficientVoiceLeading.__call__"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.EfficientVoiceLeading.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="EfficientVoiceLeading.__call__"><a class="viewcode-back" href="../../orbichord.html#orbichord.chordinate.EfficientVoiceLeading.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
         <span class="n">chordA</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
         <span class="n">chordB</span><span class="p">:</span> <span class="n">Chord</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
@@ -316,7 +316,8 @@
         <span class="n">voice_leading_distance</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">voice_leading_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">interscalarMatrix</span><span class="p">(</span>
-            <span class="n">chordA</span><span class="p">,</span> <span class="n">chordB</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_permutation</span>
+            <span class="n">chordA</span><span class="p">,</span> <span class="n">chordB</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">,</span>
+            <span class="n">permutation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_permutation</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)):</span>
             <span class="n">voice_leading</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -391,7 +392,7 @@
       &copy;2019, Victor E. Bazterra.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

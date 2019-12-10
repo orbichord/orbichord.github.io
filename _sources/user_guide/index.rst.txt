@@ -12,3 +12,4 @@ User guides
   chromatic_voice_leading_in_dichords.ipynb
   chromatic_voice_leading_in_common_trichords.ipynb
   chromatic_voice_leading_in_common_tetrachords.ipynb
+  C_major_circle_of_thrids.ipynb

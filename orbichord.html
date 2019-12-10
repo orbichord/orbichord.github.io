@@ -63,7 +63,7 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="k">import</span> <span class="n">IdentifiedChord</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="kn">import</span> <span class="n">IdentifiedChord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">IdentifiedChord</span><span class="p">(</span><span class="n">notes</span> <span class="o">=</span> <span class="s1">&#39;C4 E4 G4&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">orderedPitchClassesString</span><span class="p">)</span>
 <span class="go">&lt;047&gt;</span>
@@ -120,11 +120,11 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">inf</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">EfficientVoiceLeading</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">inf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">EfficientVoiceLeading</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;G B D&#39;</span><span class="p">)</span>
@@ -221,9 +221,9 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">interscalarMatrix</span><span class="p">,</span> <span class="n">Permutation</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">interscalarMatrix</span><span class="p">,</span> <span class="n">Permutation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">chordA</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">chordB</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;A C E&#39;</span><span class="p">)</span>
@@ -262,9 +262,9 @@ shortest possible voice leading.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">scalePoint</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">scalePoint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">chord</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scalePoint</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
@@ -293,9 +293,9 @@ shortest possible voice leading.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="k">import</span> <span class="n">Chord</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">ChromaticScale</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="k">import</span> <span class="n">standardSimplex</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">ChromaticScale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">standardSimplex</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">ChromaticScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">chord</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="s1">&#39;C E G&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">standardSimplex</span><span class="p">(</span><span class="n">chord</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
@@ -357,9 +357,9 @@ Science 313.5783 (2006): 72-74.</p></li>
 in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.generator</span> <span class="k">import</span> <span class="n">Generator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="k">import</span> <span class="n">chordSymbolFigure</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="k">import</span> <span class="n">MajorScale</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.generator</span> <span class="kn">import</span> <span class="n">Generator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="kn">import</span> <span class="n">chordSymbolFigure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">chord_generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">pitches</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">getPitches</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">),</span>
@@ -702,7 +702,7 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
       &copy;2019, Victor E. Bazterra.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
