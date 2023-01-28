@@ -1,35 +1,37 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCRN64Q30Xs"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WCRN64Q30Xs');
+    </script>
+    
     <title>orbichord package &#8212;  1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Chromatic voice leading in common trichords" href="user_guide/C_major_circle_of_thrids.html" />
-
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-151360053-1']);
-  _gaq.push(['_trackPageview']);
-</script>
 
   </head><body>
   
@@ -46,7 +48,7 @@
 <div class="section" id="module-orbichord.chord">
 <span id="orbichord-chord-module"></span><h2>orbichord.chord module<a class="headerlink" href="#module-orbichord.chord" title="Permalink to this headline">¶</a></h2>
 <p>Implement identified chords.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="orbichord.chord.IdentifiedChord">
 <em class="property">class </em><code class="sig-prename descclassname">orbichord.chord.</code><code class="sig-name descname">IdentifiedChord</code><span class="sig-paren">(</span><em class="sig-param">identify: Callable[[music21.chord.Chord], str] = &lt;function IdentifiedChord.&lt;lambda&gt;&gt;, notes=None, **keywords</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chord.html#IdentifiedChord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chord.IdentifiedChord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">music21.chord.Chord</span></code></p>
@@ -63,7 +65,7 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="kn">import</span> <span class="n">IdentifiedChord</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chord</span> <span class="kn">import</span> <span class="n">IdentifiedChord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">IdentifiedChord</span><span class="p">(</span><span class="n">notes</span> <span class="o">=</span> <span class="s1">&#39;C4 E4 G4&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">orderedPitchClassesString</span><span class="p">)</span>
 <span class="go">&lt;047&gt;</span>
@@ -75,25 +77,25 @@ map a chord in to a string.</p>
 <span class="go">5261361699489349224</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chord.IdentifiedChord.__eq__">
-<code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chord.html#IdentifiedChord.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chord.IdentifiedChord.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chord.html#IdentifiedChord.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chord.IdentifiedChord.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overload comparison based hashable implementation.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chord.IdentifiedChord.__hash__">
 <code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chord.html#IdentifiedChord.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chord.IdentifiedChord.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a has of the string.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chord.IdentifiedChord.identify">
 <em class="property">property </em><code class="sig-name descname">identify</code><a class="headerlink" href="#orbichord.chord.IdentifiedChord.identify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return identify function.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chord.IdentifiedChord.identity">
 <em class="property">property </em><code class="sig-name descname">identity</code><a class="headerlink" href="#orbichord.chord.IdentifiedChord.identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return identity string.</p>
@@ -105,7 +107,7 @@ map a chord in to a string.</p>
 <div class="section" id="module-orbichord.chordinate">
 <span id="orbichord-chordinate-module"></span><h2>orbichord.chordinate module<a class="headerlink" href="#module-orbichord.chordinate" title="Permalink to this headline">¶</a></h2>
 <p>Implement tools to compute chordinates and distances in a given scale.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="orbichord.chordinate.EfficientVoiceLeading">
 <em class="property">class </em><code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">EfficientVoiceLeading</code><span class="sig-paren">(</span><em class="sig-param">scale: music21.scale.ConcreteScale, metric: Callable[[list], float], permutation: orbichord.chordinate.Permutation = &lt;Permutation.ANY: 3&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chordinate.html#EfficientVoiceLeading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -120,7 +122,7 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">inf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
@@ -137,9 +139,9 @@ map a chord in to a string.</p>
 <span class="go">[-1, -1, 0] 1.0</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chordinate.EfficientVoiceLeading.__call__">
-<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">chordA: music21.chord.Chord</em>, <em class="sig-param">chordB: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/orbichord/chordinate.html#EfficientVoiceLeading.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chordA</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em>, <em class="sig-param"><span class="n">chordB</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/orbichord/chordinate.html#EfficientVoiceLeading.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the efficient voice leading and its distance</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -157,19 +159,19 @@ map a chord in to a string.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chordinate.EfficientVoiceLeading.metric">
 <em class="property">property </em><code class="sig-name descname">metric</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.metric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging metric.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chordinate.EfficientVoiceLeading.permutation">
 <em class="property">property </em><code class="sig-name descname">permutation</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.permutation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging metric.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.chordinate.EfficientVoiceLeading.scale">
 <em class="property">property </em><code class="sig-name descname">scale</code><a class="headerlink" href="#orbichord.chordinate.EfficientVoiceLeading.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns voice leaging scale.</p>
@@ -177,29 +179,29 @@ map a chord in to a string.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="orbichord.chordinate.Permutation">
 <em class="property">class </em><code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">Permutation</code><a class="reference internal" href="_modules/orbichord/chordinate.html#Permutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.Permutation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Define type permutation used interscalar matrix.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="orbichord.chordinate.Permutation.ANY">
 <code class="sig-name descname">ANY</code><em class="property"> = 3</em><a class="headerlink" href="#orbichord.chordinate.Permutation.ANY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="orbichord.chordinate.Permutation.CYCLIC">
 <code class="sig-name descname">CYCLIC</code><em class="property"> = 2</em><a class="headerlink" href="#orbichord.chordinate.Permutation.CYCLIC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="orbichord.chordinate.Permutation.NONE">
 <code class="sig-name descname">NONE</code><em class="property"> = 1</em><a class="headerlink" href="#orbichord.chordinate.Permutation.NONE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.chordinate.interscalarMatrix">
 <code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">interscalarMatrix</code><span class="sig-paren">(</span><em class="sig-param">chordA: music21.chord.Chord</em>, <em class="sig-param">chordB: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em>, <em class="sig-param">cardinality: bool = True</em>, <em class="sig-param">permutation: orbichord.chordinate.Permutation = &lt;Permutation.ANY: 3&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#interscalarMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.interscalarMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the interscalar matrix between two chords</p>
@@ -221,7 +223,7 @@ map a chord in to a string.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">interscalarMatrix</span><span class="p">,</span> <span class="n">Permutation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -236,16 +238,16 @@ map a chord in to a string.</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.chordinate.mod">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">mod</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chordinate.html#mod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.mod" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/chordinate.html#mod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.mod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement a modify module to provide
 shortest possible voice leading.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.chordinate.scalePoint">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">scalePoint</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#scalePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.scalePoint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">scalePoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">music21.scale.ConcreteScale</span></em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#scalePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.scalePoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute chord coordinates using the degree for a given scale</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -262,7 +264,7 @@ shortest possible voice leading.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">scalePoint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -273,9 +275,9 @@ shortest possible voice leading.</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.chordinate.standardSimplex">
-<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">standardSimplex</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">scale: music21.scale.ConcreteScale</em>, <em class="sig-param">normalize: bool = True</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#standardSimplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.standardSimplex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.chordinate.</code><code class="sig-name descname">standardSimplex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">music21.scale.ConcreteScale</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="_modules/orbichord/chordinate.html#standardSimplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.chordinate.standardSimplex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute chord scale point in the standard simplex</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -293,7 +295,7 @@ shortest possible voice leading.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.chord</span> <span class="kn">import</span> <span class="n">Chord</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">ChromaticScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.chordinate</span> <span class="kn">import</span> <span class="n">standardSimplex</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">ChromaticScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -310,7 +312,7 @@ shortest possible voice leading.</p>
 <div class="section" id="module-orbichord.generator">
 <span id="orbichord-generator-module"></span><h2>orbichord.generator module<a class="headerlink" href="#module-orbichord.generator" title="Permalink to this headline">¶</a></h2>
 <p>Generate quotient space of n-pich classes.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="orbichord.generator.Generator">
 <em class="property">class </em><code class="sig-prename descclassname">orbichord.generator.</code><code class="sig-name descname">Generator</code><span class="sig-paren">(</span><em class="sig-param">pitches: list, dimension: int = 3, combinator: Callable[[Iterable, int], Iterator] = &lt;class 'itertools.combinations_with_replacement'&gt;, identify: Callable[[music21.chord.Chord], str] = &lt;function Generator.&lt;lambda&gt;&gt;, select: Callable[[music21.chord.Chord], bool] = &lt;function hasChordSymbolFigure&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/generator.html#Generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.generator.Generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -357,7 +359,7 @@ Science 313.5783 (2006): 72-74.</p></li>
 in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.generator</span> <span class="kn">import</span> <span class="n">Generator</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.generator</span> <span class="kn">import</span> <span class="n">Generator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">orbichord.symbol</span> <span class="kn">import</span> <span class="n">chordSymbolFigure</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.scale</span> <span class="kn">import</span> <span class="n">MajorScale</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scale</span> <span class="o">=</span> <span class="n">MajorScale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -380,33 +382,33 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 <span class="go">&lt;music21.chord.Chord E0 G0 B0&gt; &lt;47B&gt; - Em</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.combinator">
 <em class="property">property </em><code class="sig-name descname">combinator</code><a class="headerlink" href="#orbichord.generator.Generator.combinator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator combinator.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.dimension">
 <em class="property">property </em><code class="sig-name descname">dimension</code><a class="headerlink" href="#orbichord.generator.Generator.dimension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator dimension.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.identify">
 <em class="property">property </em><code class="sig-name descname">identify</code><a class="headerlink" href="#orbichord.generator.Generator.identify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the function use to identify chords.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.pitches">
 <em class="property">property </em><code class="sig-name descname">pitches</code><a class="headerlink" href="#orbichord.generator.Generator.pitches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the generator pitches.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator[music21.chord.Chord]<a class="reference internal" href="_modules/orbichord/generator.html#Generator.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.generator.Generator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span>music21.chord.Chord<span class="p">]</span><a class="reference internal" href="_modules/orbichord/generator.html#Generator.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.generator.Generator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a sequence of chords.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -415,7 +417,7 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="orbichord.generator.Generator.select">
 <em class="property">property </em><code class="sig-name descname">select</code><a class="headerlink" href="#orbichord.generator.Generator.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return function to select chords.</p>
@@ -427,9 +429,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 <div class="section" id="module-orbichord.graph">
 <span id="orbichord-graph-module"></span><h2>orbichord.graph module<a class="headerlink" href="#module-orbichord.graph" title="Permalink to this headline">¶</a></h2>
 <p>Create a graph with chords as nodes.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.graph.convertGraphToData">
-<code class="sig-prename descclassname">orbichord.graph.</code><code class="sig-name descname">convertGraphToData</code><span class="sig-paren">(</span><em class="sig-param">graph: networkx.classes.graph.Graph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/graph.html#convertGraphToData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.graph.convertGraphToData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.graph.</code><code class="sig-name descname">convertGraphToData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span><span class="p">:</span> <span class="n">networkx.classes.graph.Graph</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/graph.html#convertGraphToData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.graph.convertGraphToData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a chord graph to columnal dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -445,7 +447,7 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.graph.createGraph">
 <code class="sig-prename descclassname">orbichord.graph.</code><code class="sig-name descname">createGraph</code><span class="sig-paren">(</span><em class="sig-param">generator: orbichord.generator.Generator, voice_leading: orbichord.chordinate.EfficientVoiceLeading, tolerance: Callable[[float], bool], label: Callable[[music21.chord.Chord], str] = &lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span> &#x2192; networkx.classes.graph.Graph<a class="reference internal" href="_modules/orbichord/graph.html#createGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.graph.createGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a graph as adjacency list of chords.</p>
@@ -471,9 +473,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 <div class="section" id="module-orbichord.identify">
 <span id="orbichord-identify-module"></span><h2>orbichord.identify module<a class="headerlink" href="#module-orbichord.identify" title="Permalink to this headline">¶</a></h2>
 <p>Define a set of common chord identyfier.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.identify.base10toN">
-<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">base10toN</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">base: int = 12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/identify.html#base10toN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.base10toN" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">base10toN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">base</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">12</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/identify.html#base10toN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.base10toN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change to given base upto base 36 is supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -495,9 +497,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </ul>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.identify.chordPitchClasses">
-<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordPitchClasses</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordPitchClasses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordPitchClasses" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordPitchClasses</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordPitchClasses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordPitchClasses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify chords based on its pitch classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -512,9 +514,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.identify.chordPitchNames">
-<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordPitchNames</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordPitchNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordPitchNames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordPitchNames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordPitchNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordPitchNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify chords based on its pitch names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -529,9 +531,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.identify.chordSymbolIndex">
-<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordSymbolIndex</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordSymbolIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordSymbolIndex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.identify.</code><code class="sig-name descname">chordSymbolIndex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/identify.html#chordSymbolIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.identify.chordSymbolIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify chords based on its chord symbol index.</p>
 <p>The chord symbol index is an index that is unique to each named chord.</p>
 <dl class="field-list simple">
@@ -554,9 +556,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 <div class="section" id="module-orbichord.symbol">
 <span id="orbichord-symbol-module"></span><h2>orbichord.symbol module<a class="headerlink" href="#module-orbichord.symbol" title="Permalink to this headline">¶</a></h2>
 <p>Map postonal chord names to symbols commonly found on lead sheets.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.symbol.chordSymbolFigure">
-<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">chordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em>, <em class="sig-param">inversion: int = None</em>, <em class="sig-param">enharmonic: int = 0</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/symbol.html#chordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.chordSymbolFigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">chordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em>, <em class="sig-param"><span class="n">inversion</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">enharmonic</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/orbichord/symbol.html#chordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.chordSymbolFigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify chords based chord symbol figure.</p>
 <p>This only applies to chords commonly found on lead sheets.</p>
 <dl class="field-list simple">
@@ -576,9 +578,9 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.symbol.hasChordSymbolFigure">
-<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">hasChordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param">chord: music21.chord.Chord</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/orbichord/symbol.html#hasChordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.hasChordSymbolFigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.symbol.</code><code class="sig-name descname">hasChordSymbolFigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chord</span><span class="p">:</span> <span class="n">music21.chord.Chord</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/orbichord/symbol.html#hasChordSymbolFigure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.symbol.hasChordSymbolFigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the chord has figure.</p>
 <p>This only applies to chords commonly found on lead sheets.</p>
 <dl class="field-list simple">
@@ -597,29 +599,29 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
 </div>
 <div class="section" id="module-orbichord.utils">
 <span id="orbichord-utils-module"></span><h2>orbichord.utils module<a class="headerlink" href="#module-orbichord.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.utils.playAudio">
-<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">playAudio</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#playAudio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.playAudio" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">playAudio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#playAudio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.playAudio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate audio play from stream.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.utils.renderWithJS">
-<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithJS</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithJS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithJS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithJS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithJS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithJS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a using javascript.</p>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.utils.renderWithLily">
-<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithLily</code><span class="sig-paren">(</span><em class="sig-param">stream</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithLily"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithLily" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">renderWithLily</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#renderWithLily"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.renderWithLily" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render LilyPond in Jupyter notebook.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="orbichord.utils.showMusicXML">
-<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">showMusicXML</code><span class="sig-paren">(</span><em class="sig-param">xml</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#showMusicXML"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.showMusicXML" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">orbichord.utils.</code><code class="sig-name descname">showMusicXML</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xml</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/orbichord/utils.html#showMusicXML"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#orbichord.utils.showMusicXML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show music xml using javascript.</p>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb">https://notebooks.azure.com/OUsefulInfo/projects/gettingstarted/html/4.1.0%20Music%20Notation.ipynb</a></p>
@@ -684,7 +686,7 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -697,12 +699,11 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
       </div>
       <div class="clearer"></div>
     </div>
-
     <div class="footer">
       &copy;2019, Victor E. Bazterra.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
@@ -713,19 +714,5 @@ in the Extended Common Practice, Oxford University Press, 2011.</p></li>
     
 
     
-<div class="footer">This page uses <a href="https://analytics.google.com/">
-Google Analytics</a> to collect statistics. You can disable it by blocking
-the JavaScript coming from www.google-analytics.com.
-<script type="text/javascript">
-  (function() {
-    var ga = document.createElement('script');
-    ga.src = ('https:' == document.location.protocol ?
-              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    ga.setAttribute('async', 'true');
-    document.documentElement.firstChild.appendChild(ga);
-  })();
-</script>
-</div>
-
   </body>
 </html>
